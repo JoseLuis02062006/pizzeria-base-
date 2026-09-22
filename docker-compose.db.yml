@@ -38,7 +38,8 @@ services:
     container_name: pizzeria-prod-dbgate
     restart: unless-stopped
     environment:
-      - WEB_ROOT=/dbgate
+      - WEB_ROOT=/dbgate/
+      - ROOT_URL=/dbgate/
       - SKIP_ALL_AUTH=true
       - CONNECTIONS=pizzeria
       - LABEL_pizzeria=Pizzería DB
@@ -63,7 +64,9 @@ services:
       db:
         condition: service_healthy
     networks:
-      - pizzeria-network
+      pizzeria-network:
+        aliases:
+          - dbgate
 
 # Red compartida externa: Permite comunicar este stack con el de la aplicación
 networks:
